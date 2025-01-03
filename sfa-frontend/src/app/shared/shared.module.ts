@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from './module/material/material.module';
+import { WidgetModule } from './widget/widget.module';
 
 
 
@@ -11,7 +12,8 @@ import { MaterialModule } from './module/material/material.module';
     MaterialModule
   ],
   exports: [
-    MaterialModule
+    MaterialModule,
+    WidgetModule
   ]
 })
 export class SharedModule { }

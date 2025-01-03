@@ -22,7 +22,7 @@ export class CommonService {
 
   constructor(private snackBar: MatSnackBar, private dialog: MatDialog) { }
 
-  	 // Dialogs Methods
+  	 // Open Dialogs Pop
      showConfirmationDialog(data: ConfirmDialogData): MatDialogRef<any> {
       return this.dialog.open(ConfirmationDialogComponent, {
           width: "500px",
