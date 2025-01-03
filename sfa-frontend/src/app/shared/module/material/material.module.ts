@@ -80,6 +80,9 @@ const materialModule: any[] = [
   imports: [
     CommonModule,
     materialModule
+  ],
+  exports: [
+    materialModule
   ]
 })
 export class MaterialModule { }
