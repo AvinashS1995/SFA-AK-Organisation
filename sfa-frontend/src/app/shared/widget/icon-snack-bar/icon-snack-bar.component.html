@@ -1,0 +1,5 @@
+<div fxFlex fxLayout="row" fxLayoutAlign="flex-start center">
+    <mat-icon class="font-40" fxFlex="15" fxLayoutAlign="flex-start center">{{ data?.icon }}</mat-icon>
+    <span fxFlex="85" fxLayoutAlign="flex-start center">{{ data?.message }}</span>
+    <button mat-button (click)="snackBarRef.dismiss()">CLOSE</button>
+</div>

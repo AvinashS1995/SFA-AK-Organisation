@@ -1,0 +1,64 @@
+<div class="pad-top-bottom" [ngClass]="class">
+    <mat-form-field *ngIf="inputType !== 'textarea'" [appearance]="appearance">
+      <mat-label>{{label}}</mat-label>
+      <span *ngIf="preFix" matPrefix> +{{preFix}} &nbsp;</span>
+  
+      <ng-container *ngIf="!hasMask">
+        <input *ngIf="control && this.inputValue !== 'decimal'" matInput class="input" [placeholder]="placeholder" [type]="inputType" [min]="min" [name]="formControlName" [inputValue]="inputValue"
+          [value]="value" oninput="if (this.type=='number') this.value=Math.abs(this.value) " (input)="writeValue($event)"
+          [autocomplete]="isAutocompleteOff" [formControl]="control" (blur)="onBlurEvent($event)"
+          (click)="onClickedEvent($event)" [id]="formControlName" tpRestirctCharacter/>
+      </ng-container>
+  
+      <ng-container *ngIf="!hasMask">
+        <input *ngIf="control && this.inputValue === 'decimal'" matInput class="input" [placeholder]="placeholder" [type]="inputType" [min]="min" [name]="formControlName" [inputValue]="inputValue"
+          [value]="value" (input)="writeValue($event)"
+          [autocomplete]="isAutocompleteOff" [formControl]="control" (blur)="onBlurEvent($event)"
+          (click)="onClickedEvent($event)" [id]="formControlName" tpRestirctCharacter/>
+      </ng-container>
+  
+      <ng-container *ngIf="hasMask">
+        <input *ngIf="control" matInput class="input" [placeholder]="placeholder" [type]="inputType" [name]="formControlName" [value]="value"
+          oninput="if (this.type=='number') this.value=Math.abs(this.value) " (input)="writeValue($event)"
+          [autocomplete]="isAutocompleteOff" [formControl]="control" (blur)="onBlurEvent($event)"
+          (click)="onClickedEvent($event)" [textMask]="{mask: mask}" [id]="formControlName" tpRestirctCharacter/>
+      </ng-container>
+  
+      <mat-icon matSuffix class="btn-password-toggle" *ngIf="passwordToggle && value"
+        (click)="pwToggle = !pwToggle; inputType= pwToggle ? 'text' : 'password'">
+        {{pwToggle ? 'visibility_off' : 'visibility'}}</mat-icon>
+  
+      <mat-icon matSuffix class="btn-clear" *ngIf="isClearable && value && (!isDisabled && !control.disabled)"
+        (click)="this.value = ''">close
+      </mat-icon>
+      <mat-icon class="pointer" matSuffix *ngIf="!isClearable && isCustomIcon" (click)="onClickedEvent($event)">
+        {{customIcon}}</mat-icon>
+      <mat-error color="primary">{{getFieldErrorDesc()}}</mat-error>
+      <mat-hint [ngStyle]="{color: '#FF0000'}" align="start" *ngIf="disabledFieldError.length > 0">{{disabledFieldError}}
+      </mat-hint>
+      <mat-hint align="start" *ngIf="leftHint.length > 0">{{leftHint}}</mat-hint>
+      <mat-hint *ngIf="!showCharCount" align="end">{{rightHint}}</mat-hint>
+      <mat-hint *ngIf="control && showCharCount" align="end">
+        {{this.control.value.length}} {{rightHint}}
+      </mat-hint>
+    </mat-form-field>
+  
+    <mat-form-field *ngIf="inputType === 'textarea'" [appearance]="appearance">
+      <mat-label>{{label}}</mat-label>
+      <span *ngIf="preFix" matPrefix> +{{preFix}} &nbsp;</span>
+  
+      <textarea *ngIf="control" matInput class="input" [name]="formControlName" [value]="value" [rows]="rows"
+        (input)="writeValue($event)" [formControl]="control" [maxlength]="maxLength" tpRestirctCharacter> </textarea>
+  
+      <mat-icon matSuffix class="btn-clear" *ngIf="isClearable && value && (!isDisabled && !control.disabled)"
+        (click)="this.value = ''">close
+      </mat-icon>
+      <mat-error>{{getFieldErrorDesc()}}</mat-error>
+      <mat-hint align="start" *ngIf="leftHint.length > 0">{{leftHint}}</mat-hint>
+      <mat-hint *ngIf="!showCharCount" align="end">{{rightHint}}</mat-hint>
+      <mat-hint *ngIf="control && showCharCount" align="end">
+        {{this.control.value.length}} {{rightHint}}
+      </mat-hint>
+    </mat-form-field>
+  
+  </div>
