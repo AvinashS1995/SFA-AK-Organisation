@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from './module/material/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WidgetModule } from './widget/widget.module';
 
 
@@ -9,10 +10,14 @@ import { WidgetModule } from './widget/widget.module';
   declarations: [],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
     WidgetModule
   ]
 })

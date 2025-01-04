@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { SharedModule } from '../../../shared/shared.module';
+import { FormBuilder, FormGroup, FormControlName, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -9,5 +10,60 @@ import { SharedModule } from '../../../shared/shared.module';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+
+  Lhide = signal(true);
+  Rhide1 = signal(true);
+  Rhide2 = signal(true);
+
+  loginForm!: FormGroup;
+  signupForm!: FormGroup;
+
+  constructor(
+    private fb: FormBuilder
+  ){}
+
+  ngOnInit(){
+    this.buildForm();
+  }
+  
+  buildForm(){
+    // Login form
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+    // Sign Up form
+    this.signupForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
+    })
+  }
+
+  clickEvent(event: MouseEvent, btn: string) {
+    if(btn === 'Lbtn'){
+      this.Lhide.set(!this.Lhide());
+      event.stopPropagation();
+    }else if(btn === 'Rbtn1'){
+      this.Rhide1.set(!this.Rhide1());
+      event.stopPropagation();
+      
+    }else{
+      this.Rhide2.set(!this.Rhide2());
+      event.stopPropagation();
+
+    }
+  }
+
+  onLoginSubmit(){
+    console.log(this.loginForm);
+    
+  }
+  
+  onSignupSubmit(){
+    console.log(this.signupForm);
+
+  }
+
 
 }
