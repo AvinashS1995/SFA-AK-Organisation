@@ -8,36 +8,86 @@
 
         <mat-card-content>
             <mat-tab-group>
-                <mat-tab label="login">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>User Name</mat-label>
-                        <input matInput placeholder="Ex. Pizza" value="">
-                    </mat-form-field>
-                    
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Password</mat-label>
-                        <input matInput placeholder="Ex. Pizza" value="">
-                    </mat-form-field>
-                    <div style="height: 86px;"></div>
-                    <button mat-flat-button class="example-full-width">Login</button>
+                <!-- Login form -->
+                <mat-tab label="Login">
+                    <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>User Name</mat-label>
+                            <input matInput placeholder="User Name" value="" formControlName="username">
+                            @if(loginForm.controls['username'].invalid && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)){
+                                <mat-error>You must enter a value</mat-error>
+                            }
+                        </mat-form-field>
+                        
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Password</mat-label>
+                            <input matInput placeholder="Password" [type]="Lhide() ? 'password' : 'text'" value="" formControlName="password">
+                            <button
+                                type="button"
+                                mat-icon-button
+                                matSuffix
+                                (click)="clickEvent($event, 'Lbtn')"
+                                [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="Lhide()"
+                            >
+                                <mat-icon>{{Lhide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            @if(loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)){
+                                <mat-error>You must enter a value</mat-error>
+                            }
+                        </mat-form-field>
+                        <div style="height: 86px;"></div>
+                        <button mat-flat-button class="example-full-width">Login</button>
+                    </form>
                 </mat-tab>
-
+                <!-- Sign Up Form -->
                 <mat-tab label="Sign Up">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>User Name</mat-label>
-                        <input matInput placeholder="Ex. Pizza" value="">
-                    </mat-form-field>
-                    
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Password</mat-label>
-                        <input matInput placeholder="Ex. Pizza" value="">
-                    </mat-form-field>
+                    <form [formGroup]="signupForm" (ngSubmit)="onSignupSubmit()">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>User Name</mat-label>
+                            <input matInput placeholder="Ex. Pizza" value="" formControlName="username">
+                            @if(signupForm.controls['username'].invalid && (signupForm.controls['username'].dirty || signupForm.controls['username'].touched)){
+                                <mat-error>You must enter a value</mat-error>
+                            }
+                        </mat-form-field>
+                        
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Password</mat-label>
+                            <input matInput placeholder="Password" [type]="Rhide1() ? 'password' : 'text'" value="" formControlName="password">
+                            <button
+                                type="button"
+                                mat-icon-button
+                                matSuffix
+                                (click)="clickEvent($event, 'Rbtn1')"
+                                [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="Rhide1()"
+                            >
+                                <mat-icon>{{Rhide1() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            @if(signupForm.controls['password'].invalid && (signupForm.controls['password'].dirty || signupForm.controls['password'].touched)){
+                                <mat-error>You must enter a value</mat-error>
+                            }
+                        </mat-form-field>
 
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Confirm Password</mat-label>
-                        <input matInput placeholder="Ex. Pizza" value="">
-                    </mat-form-field>
-                    <button mat-flat-button class="example-full-width">Register</button>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Confirm Password</mat-label>
+                            <input matInput placeholder="Confirm Password" [type]="Rhide2() ? 'password' : 'text'" value="" formControlName="confirmPassword">
+                            <button
+                                type="button"
+                                mat-icon-button
+                                matSuffix
+                                (click)="clickEvent($event, 'Rbtn2')"
+                                [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="Rhide2()"
+                            >
+                                <mat-icon>{{Rhide2() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            @if(signupForm.controls['confirmPassword'].invalid && (signupForm.controls['confirmPassword'].dirty || signupForm.controls['confirmPassword'].touched)){
+                                <mat-error>You must enter a value</mat-error>
+                            }
+                        </mat-form-field>
+                        <button mat-flat-button class="example-full-width">Register</button>
+                    </form>
                 </mat-tab>
             </mat-tab-group>
         </mat-card-content>

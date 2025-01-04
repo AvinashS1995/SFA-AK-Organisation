@@ -2,7 +2,9 @@
     background-color: #005cbb;
     height: 100vh;
     width: 100vw;
-    text-align: -webkit-center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .example-card {
