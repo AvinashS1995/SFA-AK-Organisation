@@ -37,7 +37,7 @@
                             }
                         </mat-form-field>
                         <div style="height: 86px;"></div>
-                        <button mat-flat-button class="example-full-width">Login</button>
+                        <button mat-flat-button class="example-full-width" [disabled]="loginForm.invalid" >Login</button>
                     </form>
                 </mat-tab>
                 <!-- Sign Up Form -->
@@ -86,7 +86,7 @@
                                 <mat-error>You must enter a value</mat-error>
                             }
                         </mat-form-field>
-                        <button mat-flat-button class="example-full-width">Register</button>
+                        <button mat-flat-button class="example-full-width" [disabled]="signupForm.invalid">Register</button>
                     </form>
                 </mat-tab>
             </mat-tab-group>
