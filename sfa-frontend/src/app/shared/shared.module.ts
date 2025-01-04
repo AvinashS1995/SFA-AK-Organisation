@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from './module/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { WidgetModule } from './widget/widget.module';
 
 
 
@@ -16,7 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   exports: [
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    WidgetModule
   ]
 })
 export class SharedModule { }
