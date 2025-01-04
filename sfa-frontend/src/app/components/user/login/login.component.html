@@ -7,14 +7,14 @@
         </mat-card-header>
 
         <mat-card-content>
-            <mat-tab-group>
+            <mat-tab-group (selectedTabChange)="onTabChange($event)">
                 <!-- Login form -->
                 <mat-tab label="Login">
                     <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
                         <mat-form-field class="example-full-width">
                             <mat-label>User Name</mat-label>
                             <input matInput placeholder="User Name" value="" formControlName="username">
-                            @if(loginForm.controls['username'].invalid && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)){
+                            @if(loginForm.controls['username'].hasError('required') && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)){
                                 <mat-error>You must enter a value</mat-error>
                             }
                         </mat-form-field>
@@ -32,7 +32,7 @@
                             >
                                 <mat-icon>{{Lhide() ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </button>
-                            @if(loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)){
+                            @if(loginForm.controls['password'].hasError('required') && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)){
                                 <mat-error>You must enter a value</mat-error>
                             }
                         </mat-form-field>
@@ -46,7 +46,7 @@
                         <mat-form-field class="example-full-width">
                             <mat-label>User Name</mat-label>
                             <input matInput placeholder="Ex. Pizza" value="" formControlName="username">
-                            @if(signupForm.controls['username'].invalid && (signupForm.controls['username'].dirty || signupForm.controls['username'].touched)){
+                            @if(signupForm.controls['username'].hasError('required') && (signupForm.controls['username'].dirty || signupForm.controls['username'].touched)){
                                 <mat-error>You must enter a value</mat-error>
                             }
                         </mat-form-field>
@@ -64,7 +64,7 @@
                             >
                                 <mat-icon>{{Rhide1() ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </button>
-                            @if(signupForm.controls['password'].invalid && (signupForm.controls['password'].dirty || signupForm.controls['password'].touched)){
+                            @if(signupForm.controls['password'].hasError('required') && (signupForm.controls['password'].dirty || signupForm.controls['password'].touched)){
                                 <mat-error>You must enter a value</mat-error>
                             }
                         </mat-form-field>
@@ -82,7 +82,7 @@
                             >
                                 <mat-icon>{{Rhide2() ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </button>
-                            @if(signupForm.controls['confirmPassword'].invalid && (signupForm.controls['confirmPassword'].dirty || signupForm.controls['confirmPassword'].touched)){
+                            @if(signupForm.controls['confirmPassword'].hasError('required') && (signupForm.controls['confirmPassword'].dirty || signupForm.controls['confirmPassword'].touched)){
                                 <mat-error>You must enter a value</mat-error>
                             }
                         </mat-form-field>

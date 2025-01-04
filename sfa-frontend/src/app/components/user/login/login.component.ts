@@ -40,6 +40,16 @@ export class LoginComponent {
     })
   }
 
+  onTabChange(event: any){
+    // console.log(event);
+    if(event.index === 0){
+      this.loginForm.reset();
+    }else{
+      this.signupForm.reset();
+    }
+    
+  }
+
   clickEvent(event: MouseEvent, btn: string) {
     if(btn === 'Lbtn'){
       this.Lhide.set(!this.Lhide());
@@ -57,11 +67,21 @@ export class LoginComponent {
 
   onLoginSubmit(){
     console.log(this.loginForm);
+    if(this.loginForm.valid){
+
+    }else{
+      this.loginForm.markAllAsTouched();
+    }
     
   }
   
   onSignupSubmit(){
     console.log(this.signupForm);
+    if(this.signupForm.valid){
+      
+    }else{
+      this.signupForm.markAllAsTouched();
+    }
 
   }
 
