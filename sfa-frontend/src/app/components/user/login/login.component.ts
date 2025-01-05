@@ -1,6 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { SharedModule } from '../../../shared/shared.module';
 import { FormBuilder, FormGroup, FormControlName, Validators } from '@angular/forms';
+import { AuthService } from '../../../shared/services/api/auth.service';
+import { Router } from '@angular/router';
+import { API_ENDPOINTS } from '../../../shared/constant';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +22,9 @@ export class LoginComponent {
   signupForm!: FormGroup;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private AuthService: AuthService,
+    private router: Router
   ){}
 
   ngOnInit(){
@@ -68,7 +73,14 @@ export class LoginComponent {
   onLoginSubmit(){
     console.log(this.loginForm);
     if(this.loginForm.valid){
-
+      this.AuthService.authApiCall(API_ENDPOINTS.serviceName_login, this.loginForm.value).subscribe((resp: any) => {
+        console.log(`${API_ENDPOINTS.serviceName_login} Response : `, resp);
+        if(resp.responseCode === '00'){
+          this.router.navigateByUrl('/dashboard')
+        }else{
+          alert(`${resp.message}`)
+        }
+      })
     }else{
       this.loginForm.markAllAsTouched();
     }
@@ -78,7 +90,18 @@ export class LoginComponent {
   onSignupSubmit(){
     console.log(this.signupForm);
     if(this.signupForm.valid){
-      
+      let params = {
+        username: this.signupForm.value.username,
+        password: this.signupForm.value.password
+      }
+      this.AuthService.authApiCall(API_ENDPOINTS.serviceName_signup, params).subscribe((resp: any) => {
+        console.log(`${API_ENDPOINTS.serviceName_signup} Response : `, resp);
+        if(resp.responseCode === '00'){
+          // this.router.navigateByUrl('login')
+        }else{
+          alert(`${resp.message}`)
+        }
+      })
     }else{
       this.signupForm.markAllAsTouched();
     }
