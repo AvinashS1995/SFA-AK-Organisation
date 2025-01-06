@@ -12,7 +12,7 @@ export class AuthService {
     private http: HttpClient
   ) { }
 
-  // Post request for Login
+  // Post request for Login and Signup
   authApiCall(endPoint: string, request: any){
     return this.http.post(`${this.apiUrl}${endPoint}`, request);
   }
