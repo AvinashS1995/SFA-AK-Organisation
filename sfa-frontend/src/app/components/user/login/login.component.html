@@ -13,7 +13,7 @@
                     <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
                         <mat-form-field class="example-full-width">
                             <mat-label>User Name</mat-label>
-                            <input matInput placeholder="User Name" value="" formControlName="username">
+                            <input matInput placeholder="User Name" formControlName="username">
                             @if(loginForm.controls['username'].hasError('required') && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)){
                                 <mat-error>You must enter a value</mat-error>
                             }
@@ -21,7 +21,7 @@
                         
                         <mat-form-field class="example-full-width">
                             <mat-label>Password</mat-label>
-                            <input matInput placeholder="Password" [type]="Lhide() ? 'password' : 'text'" value="" formControlName="password">
+                            <input matInput placeholder="Password" [type]="Lhide() ? 'password' : 'text'" formControlName="password">
                             <button
                                 type="button"
                                 mat-icon-button
@@ -32,12 +32,17 @@
                             >
                                 <mat-icon>{{Lhide() ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </button>
-                            @if(loginForm.controls['password'].hasError('required') && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)){
-                                <mat-error>You must enter a value</mat-error>
-                            }
+                            <mat-hint>
+                                @if(loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched){
+                                    <span>You must enter a value</span>
+                                }
+                                @else if(loginForm.controls['password'].hasError('pattern')){
+                                    <span>Password must include an uppercase letter, a lowercase letter, a number, and a special character. </span>
+                                }
+                            </mat-hint>
                         </mat-form-field>
                         <div style="height: 86px;"></div>
-                        <button mat-flat-button class="example-full-width" [disabled]="loginForm.invalid" >Login</button>
+                        <button mat-flat-button class="example-full-width btn">Login</button>
                     </form>
                 </mat-tab>
                 <!-- Sign Up Form -->
@@ -64,9 +69,14 @@
                             >
                                 <mat-icon>{{Rhide1() ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </button>
-                            @if(signupForm.controls['password'].hasError('required') && (signupForm.controls['password'].dirty || signupForm.controls['password'].touched)){
-                                <mat-error>You must enter a value</mat-error>
-                            }
+                            <mat-hint>
+                                @if(signupForm.controls['password'].hasError('required') && signupForm.controls['password'].touched){
+                                    <span>You must enter a value</span>
+                                }
+                                @else if(signupForm.controls['password'].hasError('pattern')){
+                                    <span>Password must include an uppercase letter, a lowercase letter, a number, and a special character. </span>
+                                }
+                            </mat-hint>
                         </mat-form-field>
 
                         <mat-form-field class="example-full-width">
@@ -82,11 +92,15 @@
                             >
                                 <mat-icon>{{Rhide2() ? 'visibility_off' : 'visibility'}}</mat-icon>
                             </button>
-                            @if(signupForm.controls['confirmPassword'].hasError('required') && (signupForm.controls['confirmPassword'].dirty || signupForm.controls['confirmPassword'].touched)){
-                                <mat-error>You must enter a value</mat-error>
-                            }
+                                <mat-hint>
+                                    @if(signupForm.controls['confirmPassword'].hasError('required') && signupForm.controls['confirmPassword'].touched){
+                                        <span>You must enter a value.</span>
+                                    }@else if(signupForm.hasError('passwordMatchError') && signupForm.controls['password'].value && signupForm.controls['confirmPassword'].value){
+                                        <span>Password and Confirm password mismatched.</span>
+                                    }
+                                </mat-hint>
                         </mat-form-field>
-                        <button mat-flat-button class="example-full-width" [disabled]="signupForm.invalid">Register</button>
+                        <button mat-flat-button class="example-full-width btn">Register</button>
                     </form>
                 </mat-tab>
             </mat-tab-group>

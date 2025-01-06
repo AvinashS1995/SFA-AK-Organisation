@@ -3,7 +3,8 @@ import { SharedModule } from '../../../shared/shared.module';
 import { FormBuilder, FormGroup, FormControlName, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/api/auth.service';
 import { Router } from '@angular/router';
-import { API_ENDPOINTS } from '../../../shared/constant';
+import { API_ENDPOINTS, REGEX } from '../../../shared/constant';
+import { matchPassword } from '../../../shared/validators/matchPassword.validator';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,7 @@ export class LoginComponent {
     private AuthService: AuthService,
     private router: Router
   ){}
-
+  
   ngOnInit(){
     this.buildForm();
   }
@@ -35,20 +36,27 @@ export class LoginComponent {
     // Login form
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', [Validators.required, Validators.pattern(REGEX.PASSWORD_REGEX)]]
     });
     // Sign Up form
     this.signupForm = this.fb.group({
       username: ['', Validators.required],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
-    })
+      password: ['', [Validators.required, Validators.pattern(REGEX.PASSWORD_REGEX)]],
+      confirmPassword: ['', [Validators.required, Validators.pattern(REGEX.PASSWORD_REGEX)]]
+    },{validators: matchPassword})
   }
 
   onTabChange(event: any){
     // console.log(event);
     if(event.index === 0){
       this.loginForm.reset();
+      // this.loginForm.markAsPristine();
+      // this.loginForm.markAsUntouched();
+      // Object.keys(this.loginForm.controls).forEach((key) => {
+        // this.loginForm.get(key)?.setErrors(null)
+        // this.loginForm.get(key)?.setValidators(Validators.required)
+        // this.loginForm.get(key)?.updateValueAndValidity()
+      // })
     }else{
       this.signupForm.reset();
     }
@@ -82,7 +90,7 @@ export class LoginComponent {
         }
       })
     }else{
-      this.loginForm.markAllAsTouched();
+      // this.loginForm.markAllAsTouched();
     }
     
   }

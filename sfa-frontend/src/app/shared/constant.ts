@@ -3,4 +3,9 @@ const API_ENDPOINTS = {
     serviceName_signup: 'authenticateUser/signup'
 }
 
-export {API_ENDPOINTS}
+// Use regex for JavaScript ('\' is a escape charector hence use it twice)
+const REGEX = {
+    PASSWORD_REGEX: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$'
+}
+
+export {API_ENDPOINTS, REGEX}
