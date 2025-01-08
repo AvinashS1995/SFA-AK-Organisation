@@ -4,6 +4,9 @@ const cors = require('cors');
 // const cookieparser = require('cookie-parser');
 // const mongoose = require('mongoose');
 const fs = require('fs');
+const crypto = require('crypto')
+const { jwtAuthMiddleware, generateToken } = require('./routes/jwt')
+
 
 const app = express();
 
@@ -29,6 +32,8 @@ app.get('/', (req,res) => {
 
 const filePath = './data.json'
 
+// app.use(jwtAuthMiddleware)
+
 // Login API
 app.post('/authenticateUser/login', (req, res) => {
     const responseData = {
@@ -52,6 +57,8 @@ app.post('/authenticateUser/login', (req, res) => {
                 responseData.message = 'User not fount'
                 return res.json(responseData)
             }else{
+                let token = generateToken(req.body);
+                responseData.token = token
                 responseData.responseCode = '00'
                 responseData.message = 'Your are successfully Logged in'
                 return res.json(responseData)
@@ -101,6 +108,10 @@ app.post('/authenticateUser/signup', (req, res) => {
                     if(err){
                         console.error('Error writing to file:', err);
                     }else{
+                        let token = generateToken(req.body)
+                        console.log('token', token);
+                        responseData.token = token
+
                         console.log('Object added and file updated successfully!');
                         responseData.responseCode = '00'
                         responseData.message = 'User Registered Successfully'
