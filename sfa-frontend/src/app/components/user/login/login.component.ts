@@ -5,6 +5,7 @@ import { AuthService } from '../../../shared/services/api/auth.service';
 import { Router } from '@angular/router';
 import { API_ENDPOINTS, REGEX } from '../../../shared/constant';
 import { matchPassword } from '../../../shared/validators/matchPassword.validator';
+import { CommonService } from '../../../shared/services/common/common.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private AuthService: AuthService,
-    private router: Router
+    private router: Router,
+    private commonService: CommonService
   ){}
   
   ngOnInit(){
@@ -84,9 +86,12 @@ export class LoginComponent {
       this.AuthService.authApiCall(API_ENDPOINTS.serviceName_login, this.loginForm.value).subscribe((resp: any) => {
         console.log(`${API_ENDPOINTS.serviceName_login} Response : `, resp);
         if(resp.responseCode === '00'){
+          this.commonService.openSnackbar(`${resp.message}`, 'Dismiss', 'green');
           this.router.navigateByUrl('/dashboard')
         }else{
-          alert(`${resp.message}`)
+          // alert(`${resp.message}`)
+          this.commonService.openSnackbar(`${resp.message}`, 'Dismiss', 'red');
+
         }
       })
     }else{
