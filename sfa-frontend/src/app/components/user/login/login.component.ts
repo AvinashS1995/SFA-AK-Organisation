@@ -86,11 +86,11 @@ export class LoginComponent {
       this.AuthService.authApiCall(API_ENDPOINTS.serviceName_login, this.loginForm.value).subscribe((resp: any) => {
         console.log(`${API_ENDPOINTS.serviceName_login} Response : `, resp);
         if(resp.responseCode === '00'){
-          this.commonService.openSnackbar(`${resp.message}`, 'Dismiss', 'green');
+          this.commonService.openSnackbar(`${resp.message}`, 'close', 'green');
           this.router.navigateByUrl('/dashboard')
         }else{
           // alert(`${resp.message}`)
-          this.commonService.openSnackbar(`${resp.message}`, 'Dismiss', 'red');
+          this.commonService.openSnackbar(`${resp.message}`, 'close', 'red');
 
         }
       })
