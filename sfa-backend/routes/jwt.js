@@ -23,8 +23,25 @@ const jwtAuthMiddleware = (req, res, next) => {
 }
 
 // function
+const verifyJwtToken = (req) => {
+    console.log('kskskskak');
+    
+    const testToken = req.headers.authorization;
+    let token;
+    if(testToken){
+        token = testToken.split(' ')[1]
+    }
+    if(!token){
+        return 'You are not logged in!'
+    }else{
+        console.log('You have token');
+        return jwt.verify(token, jwtSecretKey)
+    }
+}
+
+// function
 const generateToken = (userData) => {
     return jwt.sign(userData, jwtSecretKey)
 }
 
-module.exports = { jwtAuthMiddleware, generateToken }
+module.exports = { jwtAuthMiddleware, generateToken, verifyJwtToken }

@@ -5,7 +5,9 @@ const cors = require('cors');
 // const mongoose = require('mongoose');
 const fs = require('fs');
 const crypto = require('crypto')
-const { jwtAuthMiddleware, generateToken } = require('./routes/jwt')
+const { jwtAuthMiddleware, generateToken, verifyJwtToken } = require('./routes/jwt');
+const { timeStamp } = require('console');
+const { date } = require('joi');
 
 
 const app = express();
@@ -79,6 +81,7 @@ app.post('/authenticateUser/login', (req, res) => {
 //     console.log("Listening....");   
 // })
 
+// Signup API
 app.post('/authenticateUser/signup', (req, res) => {
     const responseData = {
         responseCode: '',
@@ -133,6 +136,37 @@ app.post('/authenticateUser/signup', (req, res) => {
         }
     })
 
+})
+
+// Logout API
+app.post('/authenticateUser/logout', (req, res) => {
+    console.log('inside logout');
+    
+    const responseData = {
+        responseCode: '',
+        message: '',
+        timeStamp: new Date().toISOString()
+    }
+
+    try {
+        
+        const jwtResp = verifyJwtToken(req)
+        console.log(jwtResp);
+        if(typeof jwtResp === 'object'){
+            responseData.message = 'Logged out successfully';
+            responseData.responseCode = '200';
+            responseData.jwtResp = jwtResp
+        }else{
+            responseData.message = 'Invalid token';
+            responseData.responseCode = '201';
+        }
+        res.json(responseData)
+    } catch (err) {
+        console.log('Error'), err;
+        responseData.message = 'Error in Logout';
+        responseData.responseCode = '404';
+        res.json(responseData)
+    }
 })
 
 app.listen(3000,() => {
