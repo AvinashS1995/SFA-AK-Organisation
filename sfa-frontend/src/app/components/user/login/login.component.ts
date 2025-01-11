@@ -86,6 +86,7 @@ export class LoginComponent {
       this.AuthService.authApiCall(API_ENDPOINTS.serviceName_login, this.loginForm.value).subscribe((resp: any) => {
         console.log(`${API_ENDPOINTS.serviceName_login} Response : `, resp);
         if(resp.responseCode === '00'){
+          sessionStorage.setItem('authToken', resp?.token)
           this.commonService.openSnackbar(`${resp.message}`, 'close', 'green');
           this.router.navigateByUrl('/dashboard')
         }else{
